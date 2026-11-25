@@ -90,3 +90,12 @@ alert(
         : "Service Worker未制御"
 );
 
+caches.open("level-cache-v2").then(async (cache) => {
+    const requests = await cache.keys();
+
+    alert(
+        requests.map(request => request.url).join("\n")
+        || "キャッシュなし"
+    );
+});
+
