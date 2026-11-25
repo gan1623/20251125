@@ -83,3 +83,10 @@ if("serviceWorker" in navigator){
         }
     });
 }
+
+alert(
+    navigator.serviceWorker.controller
+        ? "Service Worker制御中"
+        : "Service Worker未制御"
+);
+
