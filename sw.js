@@ -1,10 +1,10 @@
 const CACHE_NAME = "level-cache-v1";
 
 const FILES_TO_CACHE = [
-    '/',
-    '/index.html',
-    '/app.js',
-    '/style.css'
+    './',
+    './index.html',
+    './app.js',
+    './style.css'
 ];
 
 self.addEventListener('install', (event) => {
