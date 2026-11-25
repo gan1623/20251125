@@ -1,6 +1,9 @@
 const startButton = document.getElementById('startButton');
 const statusText = document.getElementById('status');
 
+const bubble = document.getElementById('bubble');
+const levelStatus = document.getElementById('levelStatus');
+
 startButton.addEventListener('click', startSenser);
 
 async function startSenser() {
@@ -35,7 +38,7 @@ function showOrientation(event) {
     const beta = event.beta;
     const gamma = event.gamma;
 
-    if(alpha === null || beta === null || gamma === null){
+    if(beta === null || gamma === null){
         statusText.textContent = 'センサー情報を取得できません';
         return;
     }
@@ -43,6 +46,28 @@ function showOrientation(event) {
     document.getElementById('alpha').textContent = alpha.toFixed(1) + "°";
     document.getElementById('beta').textContent = beta.toFixed(1) + "°";
     document.getElementById('gamma').textContent = gamma.toFixed(1) + "°";
+
+    let x = gamma * 2;
+    let y = beta * 2;
+
+    const distance = Math.sqrt(x * x + y * y);
+    const maxDistance = 100;
+
+    if (distance > maxDistance) {
+        x = x * maxDistance / distance;
+        y = y * maxDistance / distance;
+    }
+
+    bubble.style.transform = `translate(-50%, -50%) translate(${x}px, ${y}px)`;
+
+    const isLevel = Math.abs(beta) < 3 && Math.abs(gamma) <= 3;
+    if (isLevel) {
+        bubble.classList.add('level-ok');
+        levelStatus.textContent = '水平です';
+    } else {
+        bubble.classList.remove('level-ok');
+        levelStatus.textContent = '水平ではありません';
+    }
 
     statusText.textContent = 'センサー情報を取得しました';
 }
