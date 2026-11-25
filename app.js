@@ -71,3 +71,15 @@ function showOrientation(event) {
 
     statusText.textContent = 'センサー情報を取得しました';
 }
+
+if("serviceWorker" in navigator){
+    window.addEventListener("load", async () => {
+        try {
+            const registration = await navigator.serviceWorker.register('/sw.js');
+            console.log('Service Workerを登録しました');
+            console.log(registration.scope);
+        } catch (error) {
+            console.error('Service Worker registration failed: ', error);
+        }
+    });
+}
